@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #213448;
+  --color-secondary: #547792;
+  --color-accent: #94B4C1;
+  --color-dialogOverlay: rgba(0, 0, 0, 0.75);
+  --color-flatHover: #edd2ff;
+}

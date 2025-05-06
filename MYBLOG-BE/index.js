@@ -19,14 +19,13 @@ const UPLOAD_DIR = "/uploads";
 await fs.mkdir(UPLOAD_DIR, { recursive: true });
 
 
-app.use("/uploads", express.static(UPLOAD_DIR));
 const app = express();
 dotenv.config();
 
 app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use("/uploads", express.static("uploads")); 
+app.use("/uploads", express.static(UPLOAD_DIR));
 
 app.use(router);
 

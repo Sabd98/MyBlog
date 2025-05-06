@@ -1,5 +1,6 @@
 <template>
   <section>
+    <!-- Validation Error dialog -->
     <base-dialog
       v-if="inputIsInvalid"
       title="Invalid Input"
@@ -16,6 +17,7 @@
         <base-button @click="confirmError">Okay</base-button>
       </template>
     </base-dialog>
+    <!-- Form Component -->
     <base-card>
       <form class="space-y-4 p-4" @submit.prevent="submitData">
         <div class="form-control">
@@ -51,7 +53,6 @@
 
 <script>
 export default {
-  inject: ["addPost"],
   data() {
     return {
       title: "",
@@ -67,9 +68,11 @@ export default {
     };
   },
   methods: {
+    //Image Upload Handler
     handleImageUpload(event) {
       this.image = event.target.files[0];
     },
+    //Submit data handler
     async submitData() {
       if (!this.validateInput()) return;
 
@@ -107,30 +110,29 @@ export default {
 };
 </script>
 
-<style scoped>
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input,
-textarea {
-  display: block;
-  width: 100%;
-  font: inherit;
-  padding: 0.15rem;
-  border: 1px solid #ccc;
-}
-
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #3a0061;
-  background-color: #f7ebff;
-}
-
+<style lang="scss" scoped>
 .form-control {
   margin: 1rem 0;
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    font: inherit;
+    padding: 0.15rem;
+    border: 1px solid #ccc;
+
+    &:focus {
+      outline: none;
+      border-color: #94B4C1;
+      background-color: #f7ebff;
+    }
+  }
 }
 </style>

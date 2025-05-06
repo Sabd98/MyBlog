@@ -5,7 +5,8 @@ import path, { dirname, join } from "path";
 import { Post } from "../models/Post.js";
 import { fileURLToPath } from "url";
 export const router = Router();
-// Image upload configuration
+
+//File Upload Middleware
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -17,6 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+//fetch posts
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.findAll({
@@ -36,6 +38,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//Fetch a post
 router.get("/:id", async (req, res) => {
   try {
     console.log(typeof req.params.id)
@@ -47,6 +50,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//Create Post
 router.post("/", upload.single("image"), async (req, res) => {
   console.log(req.file.filename,'sasa');  
   try {
@@ -65,13 +69,13 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
+//Update Post
 router.put("/:id", upload.single("image"), async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id);
     if (!post) return res.status(404).json({ message: "Post not found" });
     let image_url = post.image_url;
     if (req.file) {
-      // Delete old image
       if (post.image_url) {
         const oldImagePath = path.join(__dirname, "..", post.image_url);
         fs.unlink(oldImagePath, (err) => {
@@ -94,22 +98,22 @@ router.put("/:id", upload.single("image"), async (req, res) => {
   }
 });
 
-// Create __dirname equivalent
+//File Config
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-// Delete post
+
+//Delete Post
 router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id);
     if (!post) return res.status(404).json({ message: "Post not found" });
 
     if (post.image_url) {
-      // Proper path construction
       const filename = post.image_url.split("/uploads/").pop();
       const imagePath = join(__dirname, "..", "uploads", filename);
 
       if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath); // Use synchronous version for better error handling
+        fs.unlinkSync(imagePath); 
       } else {
         console.warn("Image file not found:", imagePath);
       }

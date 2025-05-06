@@ -1,5 +1,5 @@
 <template>
-  <!-- <the-header title="Sabda's Blog"></the-header> -->
+  <!-- Home Page With Blog Post Handler -->
   <the-resources @post-created="handleNewPost"></the-resources>
 </template>
 
@@ -7,6 +7,7 @@
 import TheResources from "../components/blog-resources/TheResources.vue";
 
 export default {
+  //Core Scripts with Post Handlers
   components: {
     TheResources,
   },

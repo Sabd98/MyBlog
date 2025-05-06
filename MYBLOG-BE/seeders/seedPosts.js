@@ -24,7 +24,7 @@ const postsData = [
 
 const seedPosts = async () => {
   try {
-    await sequelize.sync(); // Sync model with database
+    await sequelize.sync(); 
     await Post.bulkCreate(postsData);
     console.log("Posts seeded successfully!");
   } catch (error) {

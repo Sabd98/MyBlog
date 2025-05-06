@@ -1,8 +1,9 @@
 <template>
   <li class="max-w-xl mx-auto">
+    <!-- Card Layout -->
     <base-card>
       <img
-        :src="`http://localhost:3000${imageUrl}`"
+        :src="`https://myblog-production-9038.up.railway.app${imageUrl}`"
         alt="Post image"
         class="post-image"
       />
@@ -37,6 +38,7 @@ export default {
   },
   props: ["id", "title", "description", "author", "createdAt", "imageUrl"],
   computed: {
+    //date format and back page handler
     formattedDate() {
       return new Date(this.createdAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -49,6 +51,7 @@ export default {
     },
   },
   methods: {
+    //Emitting read more method
     readMore() {
       this.$emit("read-more", this.id);
     },
@@ -57,8 +60,7 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Update styles to include new elements */
+<style lang="scss" scoped>
 .post-image {
   width: 100%;
   height: 20rem;
@@ -85,9 +87,9 @@ export default {
   border-radius: 4px;
   transition: 0.2s;
   color: #969696;
-}
 
-.read-more-link:hover {
-  color: #353535;
+  &:hover {
+    color: #353535;
+  }
 }
 </style>

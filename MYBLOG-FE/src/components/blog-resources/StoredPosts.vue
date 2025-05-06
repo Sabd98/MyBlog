@@ -1,4 +1,5 @@
 <template>
+  <!-- Blog Cards -->
   <ul class="grid grid-cols-3 gap-x-5">
     <blog-resource
       v-for="post in posts"
@@ -12,23 +13,17 @@
       @read-more="showPostDetail"
     ></blog-resource>
 
-    <post-detail
-      v-if="selectedPostId"
-      :id="selectedPostId"
-      @close="selectedPostId = null"
-    />
   </ul>
 </template>
 
 <script>
 import BlogResource from "./BlogResource.vue";
-import PostDetail from "./PostDetail.vue";
 
 export default {
+  //Fetch Post Config and to Post Detail 
   inject: ["posts"],
   components: {
     BlogResource,
-    PostDetail,
   },
   data() {
     return {
@@ -47,6 +42,6 @@ export default {
 ul {
   list-style: none;
   margin: auto;
-  max-width: 52rem;
+  max-width: 90rem;
 }
 </style>

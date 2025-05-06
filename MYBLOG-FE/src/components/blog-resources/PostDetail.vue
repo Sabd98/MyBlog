@@ -1,6 +1,7 @@
 <template>
   <div v-if="post" class="post-detail-page">
     <base-card class="p-6">
+    <!-- Detail Component -->
       <div v-if="!isEditing">
         <div class="header">
           <h1 class="font-bold">{{ post.title }}</h1>
@@ -22,16 +23,16 @@
         </div>
 
         <img
-          :src="`http://localhost:3000${post.image_url}`"
+          :src="`https://myblog-production-9038.up.railway.app${post.image_url}`"
           class="post-image"
         />
 
         <div class="content">
-          <!-- <p class="description">{{ post.description }}</p> -->
           <p class="full-content">{{ post.content }}</p>
         </div>
       </div>
 
+      <!-- Form Component -->
       <form v-else @submit.prevent="submitUpdate">
         <div class="form-control">
           <label>Title</label>
@@ -49,7 +50,9 @@
           <label>Current Image</label>
           <img
             v-if="post.image_url"
-            :src="'http://localhost:3000' + post.image_url"
+            :src="
+              'https://myblog-production-9038.up.railway.app' + post.image_url
+            "
             class="preview-image"
           />
           <input type="file" @change="handleImageUpload" />
@@ -96,6 +99,7 @@ export default {
     };
   },
   computed: {
+    //Date format
     formattedDate() {
       return new Date(this.post.createdAt).toLocaleDateString("en-US", {
         year: "numeric",
@@ -108,10 +112,13 @@ export default {
     await this.fetchPost();
   },
   methods: {
+    //Fetch a post detail
     async fetchPost() {
       this.isLoading = true;
       try {
-        const response = await axios.get(`http://localhost:3000/${this.id}`);
+        const response = await axios.get(
+          `https://myblog-production-9038.up.railway.app/${this.id}`
+        );
         this.post = response.data;
         console.log(this.post);
       } catch (error) {
@@ -120,6 +127,7 @@ export default {
         this.isLoading = false;
       }
     },
+    //toEditHandler
     enableEditing() {
       this.isEditing = true;
       this.initEditData();
@@ -132,10 +140,11 @@ export default {
         image: null,
       };
     },
+    //Image Upload Handler
     handleImageUpload(event) {
       this.editData.image = event.target.files[0];
     },
-
+    //Update data Handler
     async submitUpdate() {
       try {
         const formData = new FormData();
@@ -145,7 +154,7 @@ export default {
         if (this.editData.image) formData.append("image", this.editData.image);
 
         const response = await axios.put(
-          `http://localhost:3000/${this.id}`,
+          `https://myblog-production-9038.up.railway.app/${this.id}`,
           formData,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
@@ -163,7 +172,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .loading {
   text-align: center;
   padding: 2rem;
@@ -177,6 +186,7 @@ export default {
   text-align: center;
   font-weight: bold;
 }
+
 .post-detail-page {
   max-width: 800px;
   margin: 2rem auto;
@@ -228,20 +238,20 @@ export default {
 
 .form-control {
   margin-bottom: 1.5rem;
-}
 
-.form-control label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
 
-.form-control input,
-.form-control textarea {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
 }
 
 .preview-image {

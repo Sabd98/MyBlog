@@ -1,5 +1,6 @@
 <template>
-  <base-card>
+  <section>
+ <base-card>
     <div class="p-2 space-x-3">
       <base-button
         @click="setSelectedTab('stored-posts')"
@@ -14,6 +15,8 @@
   <keep-alive>
     <component :is="selectedTab" @submit-post="handlePostSubmit"></component>
   </keep-alive>
+  </section>
+
 </template>
 
 <script>

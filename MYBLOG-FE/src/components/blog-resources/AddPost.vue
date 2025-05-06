@@ -1,51 +1,52 @@
 <template>
-  <base-dialog
-    v-if="inputIsInvalid"
-    title="Invalid Input"
-    @close="confirmError"
-  >
-    <template #default>
-      <p>Unfortunately, at least one input value is invalid.</p>
-      <p>
-        Please check all inputs and make sure you enter at least a few
-        characters into each input field.
-      </p>
-    </template>
-    <template #actions>
-      <base-button @click="confirmError">Okay</base-button>
-    </template>
-  </base-dialog>
-  <base-card>
-    <form class="space-y-4 p-4" @submit.prevent="submitData">
-      <div class="form-control">
-        <label :class="labelClass" for="title">Title</label>
-        <input id="title" v-model="title" />
-      </div>
-      <div class="form-control">
-        <label :class="labelClass" for="description">Short Description</label>
-        <textarea id="description" v-model="description" rows="3"></textarea>
-      </div>
-      <div class="form-control">
-        <label :class="labelClass" for="content">Content</label>
-        <textarea id="content" v-model="content" rows="6"></textarea>
-      </div>
-      <div class="form-control">
-        <label :class="labelClass" for="image">Post Image</label>
-        <input
-          type="file"
-          :class="inputClass"
-          id="image"
-          @change="handleImageUpload"
-        />
-      </div>
-      <div>
-        
-        <base-button type="submit" :loading="isSubmitting"
-          >Submit Post</base-button
-        >
-      </div>
-    </form>
-  </base-card>
+  <section>
+    <base-dialog
+      v-if="inputIsInvalid"
+      title="Invalid Input"
+      @close="confirmError"
+    >
+      <template #default>
+        <p>Unfortunately, at least one input value is invalid.</p>
+        <p>
+          Please check all inputs and make sure you enter at least a few
+          characters into each input field.
+        </p>
+      </template>
+      <template #actions>
+        <base-button @click="confirmError">Okay</base-button>
+      </template>
+    </base-dialog>
+    <base-card>
+      <form class="space-y-4 p-4" @submit.prevent="submitData">
+        <div class="form-control">
+          <label :class="labelClass" for="title">Title</label>
+          <input id="title" v-model="title" />
+        </div>
+        <div class="form-control">
+          <label :class="labelClass" for="description">Short Description</label>
+          <textarea id="description" v-model="description" rows="3"></textarea>
+        </div>
+        <div class="form-control">
+          <label :class="labelClass" for="content">Content</label>
+          <textarea id="content" v-model="content" rows="6"></textarea>
+        </div>
+        <div class="form-control">
+          <label :class="labelClass" for="image">Post Image</label>
+          <input
+            type="file"
+            :class="inputClass"
+            id="image"
+            @change="handleImageUpload"
+          />
+        </div>
+        <div>
+          <base-button type="submit" :loading="isSubmitting"
+            >Submit Post</base-button
+          >
+        </div>
+      </form>
+    </base-card>
+  </section>
 </template>
 
 <script>

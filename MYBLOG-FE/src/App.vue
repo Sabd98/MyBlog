@@ -1,6 +1,9 @@
 <template>
-  <the-header title="Sabda's Blog"></the-header>
+  <main>
+ <the-header title="Sabda's Blog"></the-header>
   <router-view></router-view>
+  </main>
+ 
 </template>
 
 <script>

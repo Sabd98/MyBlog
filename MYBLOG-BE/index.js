@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import morgan from 'morgan';
 import cors from "cors";
 import {router} from './controllers/posts.js';
-import path from "path";
 
 const app = express();
 dotenv.config();
